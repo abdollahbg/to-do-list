@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'TasksProvider.dart';
+import 'package:to_do_list/Providers/TasksProvider.dart';
+import 'package:to_do_list/models/priority.dart';
 import 'TaskCard.dart';
-import 'priority.dart';
 
 Widget UncompletedTasks() {
   return Consumer<TasksProvider>(

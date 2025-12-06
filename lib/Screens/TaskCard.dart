@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:slideable/slideable.dart';
-import 'TasksProvider.dart';
+import 'package:to_do_list/Providers/TasksProvider.dart';
 
 class Taskcard extends StatelessWidget {
   final Widget title;

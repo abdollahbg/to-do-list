@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Add_Dialog.dart';
+import 'package:to_do_list/dialogs/Add_Dialog.dart';
 
 import 'AllTasks.dart';
 import 'CompletedTask.dart';
@@ -19,6 +19,30 @@ class _HomepageState extends State<Homepage> {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(child: null),
+
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("account"),
+                trailing: Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {},
+                splashColor: Colors.purple.withOpacity(0.1),
+              ),
+              ListTile(
+                leading: Icon(Icons.settings),
+                title: Text("Settings"),
+                trailing: Icon(Icons.arrow_forward_ios, size: 14),
+                onTap: () {
+                  Navigator.pushNamed(context, 'settings');
+                },
+                splashColor: Colors.purple.withOpacity(0.1),
+              ),
+            ],
+          ),
+        ),
         floatingActionButton: Padding(
           padding: EdgeInsets.fromLTRB(0, 0, 20, 20),
           child: FloatingActionButton(
@@ -29,6 +53,9 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white, // Set your desired color here
+          ),
           backgroundColor: Colors.deepPurple,
           elevation: 4,
           centerTitle: true,

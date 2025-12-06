@@ -1,9 +1,10 @@
-import 'priority.dart';
+import 'package:to_do_list/Providers/TasksProvider.dart';
+import 'package:to_do_list/models/priority.dart';
+
 import 'package:flutter/material.dart';
-import 'TasksProvider.dart';
 import 'package:provider/provider.dart';
 
-void showEditTaskDialog(BuildContext context, taskId) {
+void showAddTaskDialog(BuildContext context) {
   String title = "";
   int priority = Priority.none;
   TimeOfDay taskTime = TimeOfDay.now();
@@ -12,7 +13,7 @@ void showEditTaskDialog(BuildContext context, taskId) {
     context: context,
     builder: (context) {
       return AlertDialog(
-        title: Text("Edit Task"),
+        title: Text("Add Task"),
         content: StatefulBuilder(
           builder: (context, setState) => Column(
             mainAxisSize: MainAxisSize.min,
@@ -80,16 +81,15 @@ void showEditTaskDialog(BuildContext context, taskId) {
           ElevatedButton(
             onPressed: () {
               if (title.isNotEmpty) {
-                context.read<TasksProvider>().editTask(
-                  taskId,
-                  title,
-                  priority,
-                  taskTime,
+                context.read<TasksProvider>().addTask(
+                  title: title,
+                  priority: priority,
+                  taskTime: taskTime,
                 );
                 Navigator.pop(context);
               }
             },
-            child: Text("Edit"),
+            child: Text("Add"),
           ),
         ],
       );

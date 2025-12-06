@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'homePage.dart';
-import 'TasksProvider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:to_do_list/Providers/TasksProvider.dart';
+import 'package:to_do_list/Providers/ThemeModeProvider.dart';
+import 'package:to_do_list/Screens/Darktheme_screen.dart';
+import 'package:to_do_list/Screens/homePage.dart';
+import 'package:to_do_list/Screens/Settings_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // مهم
+  final prefs = await SharedPreferences.getInstance();
+  final isDark = prefs.getBool('isDark') ?? false;
+
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => TasksProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => TasksProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeModeProvider(isDark)),
+      ],
       child: ToDoList(),
     ),
   );
@@ -22,17 +33,30 @@ class ToDoList extends StatefulWidget {
 class _ToDoListState extends State<ToDoList> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-          primary: Colors.blue,
-          secondary: Colors.pinkAccent,
-        ),
-      ),
-      themeMode: ThemeMode.system,
-      home: Homepage(),
-      debugShowCheckedModeBanner: false,
+    return Selector<ThemeModeProvider, bool>(
+      builder: (context, isDark, child) {
+        return MaterialApp(
+          routes: {
+            'settings': (context) => SettingsScreen(),
+            'darktheme': (context) => DarkthemeScreen(),
+          },
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.deepPurple,
+              primary: Colors.blue,
+              secondary: Colors.pinkAccent,
+            ),
+          ),
+          darkTheme: ThemeData.dark(),
+
+          themeMode: isDark ? ThemeMode.dark : ThemeMode.light,
+          home: Homepage(),
+          debugShowCheckedModeBanner: false,
+        );
+      },
+      selector: (_, notifier) {
+        return notifier.isDark;
+      },
     );
   }
 }

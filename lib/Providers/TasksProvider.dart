@@ -1,7 +1,8 @@
-import 'Task.dart';
-import 'priority.dart';
+import 'package:to_do_list/dialogs/edit_dialog.dart';
+import 'package:to_do_list/models/Task.dart';
+import 'package:to_do_list/models/priority.dart';
+
 import 'package:flutter/material.dart';
-import 'edit_dialog.dart';
 
 class TasksProvider with ChangeNotifier {
   Map<int, Task> tasks = {};
