@@ -40,11 +40,11 @@ class SettingsScreen extends StatelessWidget {
 
 class SettingsListTile extends StatelessWidget {
   const SettingsListTile({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.onTap,
-  }) : super(key: key);
+  });
   final IconData icon;
   final String title;
   final VoidCallback onTap;

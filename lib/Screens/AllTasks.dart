@@ -56,7 +56,7 @@ Widget AllTasks() {
               taskTime: task.taskTime,
               index: index,
             );
-          }).toList(),
+          }),
 
           SizedBox(height: 30),
 

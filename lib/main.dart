@@ -8,7 +8,7 @@ import 'package:to_do_list/Screens/homePage.dart';
 import 'package:to_do_list/Screens/Settings_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // مهم
+  WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
   final isDark = prefs.getBool('isDark') ?? false;
 
