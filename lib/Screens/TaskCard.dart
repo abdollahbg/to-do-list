@@ -28,13 +28,35 @@ class Taskcard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     TextStyle? titleStyle = isComplete
         ? TextStyle(
             decoration: TextDecoration.lineThrough,
-            color: Colors.grey.shade600,
+            color: isDark ? Colors.grey.shade400 : Colors.grey.shade600,
             fontStyle: FontStyle.italic,
           )
         : null;
+
+    final cardColor = isComplete
+        ? (isDark ? Colors.grey.shade800 : Colors.deepPurple.shade50)
+        : (isDark
+              ? Colors.grey.shade900
+              : const Color.fromARGB(255, 248, 243, 255));
+
+    final borderColor = isDark
+        ? Colors.grey.shade700
+        : Colors.deepPurple.shade300;
+    final shadowColor = isDark
+        ? Colors.black26
+        : Colors.deepPurple.shade100.withOpacity(0.5);
+    final textColor = isComplete
+        ? (isDark ? Colors.grey.shade400 : Colors.grey.shade600)
+        : (isDark ? Colors.white : Colors.deepPurple.shade800);
+    final timeColor = isDark
+        ? Colors.grey.shade400
+        : Colors.deepPurple.shade400;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
@@ -43,7 +65,7 @@ class Taskcard extends StatelessWidget {
         items: <ActionItems>[
           ActionItems(
             backgroudColor: Colors.transparent,
-            icon: Icon(Icons.edit, color: Colors.deepPurple.shade400),
+            icon: Icon(Icons.edit, color: theme.colorScheme.secondary),
             onPress: () {
               context.read<TasksProvider>().editTaskDialog(context, index);
             },
@@ -58,14 +80,12 @@ class Taskcard extends StatelessWidget {
         ],
         child: Container(
           decoration: BoxDecoration(
-            color: isComplete
-                ? Colors.deepPurple.shade50
-                : const Color.fromARGB(255, 248, 243, 255),
+            color: cardColor,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.deepPurple.shade300, width: 1.5),
+            border: Border.all(color: borderColor, width: 1.5),
             boxShadow: [
               BoxShadow(
-                color: Colors.deepPurple.shade100.withOpacity(0.5),
+                color: shadowColor,
                 spreadRadius: 1,
                 blurRadius: 3,
                 offset: const Offset(0, 2),
@@ -79,7 +99,7 @@ class Taskcard extends StatelessWidget {
             leading: SizedBox(
               height: double.infinity,
               child: Checkbox(
-                activeColor: Colors.deepPurple,
+                activeColor: theme.colorScheme.secondary,
                 value: isComplete,
                 onChanged: (value) {
                   context.read<TasksProvider>().toggleCompletion(index);
@@ -88,9 +108,7 @@ class Taskcard extends StatelessWidget {
             ),
             title: DefaultTextStyle.merge(
               style: titleStyle?.copyWith(
-                color: isComplete
-                    ? Colors.grey.shade600
-                    : Colors.deepPurple.shade800,
+                color: textColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -101,10 +119,7 @@ class Taskcard extends StatelessWidget {
                 Expanded(child: priority),
                 Text(
                   "Time: ${formatTime(taskTime)}",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.deepPurple.shade400,
-                  ),
+                  style: TextStyle(fontSize: 12, color: timeColor),
                 ),
               ],
             ),

@@ -82,10 +82,10 @@ void showEditTaskDialog(BuildContext context, taskId) {
             onPressed: () {
               if (title.isNotEmpty) {
                 context.read<TasksProvider>().editTask(
-                  taskId,
-                  title,
-                  priority,
-                  taskTime,
+                  taskId: taskId,
+                  title: title,
+                  priority: priority,
+                  taskTime: taskTime,
                 );
                 Navigator.pop(context);
               }

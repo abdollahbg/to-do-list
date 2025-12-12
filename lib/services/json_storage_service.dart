@@ -11,31 +11,49 @@ class JsonStorageService {
 
   Future<File> _localFile(String filename) async {
     final path = await _localpath;
-
+    print("JSON file path: $path/$filename.json");
     return File('$path/$filename.json');
   }
 
+  /// حفظ مهام اليوم
   Future<void> saveTasksInDay(String filename, TasksInDay data) async {
     final file = await _localFile(filename);
-
     final jsonString = jsonEncode(data.toJson());
     await file.writeAsString(jsonString);
   }
 
+  /// قراءة مهام اليوم
   Future<TasksInDay?> readTasksInDay(String filename) async {
     try {
       final file = await _localFile(filename);
-
-      if (!await file.exists()) {
-        return null;
-      }
+      if (!await file.exists()) return null;
       final jsonString = await file.readAsString();
       final jsonData = jsonDecode(jsonString);
-
       return TasksInDay.fromJson(jsonData);
     } catch (e) {
       print("Error reading JSON: $e");
       return null;
+    }
+  }
+
+  /// حفظ الأرشيف الكامل
+  Future<void> saveAllTasks(List<TasksInDay> allTasks) async {
+    final file = await _localFile('tasks_archive');
+    final jsonString = jsonEncode(allTasks.map((e) => e.toJson()).toList());
+    await file.writeAsString(jsonString);
+  }
+
+  /// قراءة الأرشيف الكامل
+  Future<List<TasksInDay>> readAllTasks() async {
+    try {
+      final file = await _localFile('tasks_archive');
+      if (!await file.exists()) return [];
+      final jsonString = await file.readAsString();
+      final List<dynamic> jsonData = jsonDecode(jsonString);
+      return jsonData.map((e) => TasksInDay.fromJson(e)).toList();
+    } catch (e) {
+      print("Error reading JSON: $e");
+      return [];
     }
   }
 }
