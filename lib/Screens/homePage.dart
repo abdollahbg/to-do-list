@@ -56,7 +56,7 @@ class _HomepageState extends State<Homepage> {
           iconTheme: const IconThemeData(
             color: Colors.white, // Set your desired color here
           ),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.red,
           elevation: 4,
           centerTitle: true,
 
