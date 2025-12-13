@@ -15,7 +15,8 @@ Widget AllTasks() {
       double percent = totalTasks == 0 ? 0 : completedTasks / totalTasks;
 
       return ListView(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.only(top: 10),
+
         children: [
           ...provider.tasks.entries.map((entry) {
             final index = entry.key;

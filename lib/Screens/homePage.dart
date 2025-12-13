@@ -1,5 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_list/Providers/TasksProvider.dart';
 import 'package:to_do_list/dialogs/Add_Dialog.dart';
 
 import 'AllTasks.dart';
@@ -40,6 +44,15 @@ class _HomepageState extends State<Homepage> {
                 },
                 splashColor: Colors.purple.withOpacity(0.1),
               ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text("Archived Tasks"),
+                trailing: Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Navigator.of(context).pushNamed('archivedTasks');
+                },
+                splashColor: Colors.purple.withOpacity(0.1),
+              ),
             ],
           ),
         ),
@@ -53,9 +66,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
         appBar: AppBar(
-          iconTheme: const IconThemeData(
-            color: Colors.white, // Set your desired color here
-          ),
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.deepPurple,
           elevation: 4,
           centerTitle: true,
@@ -64,7 +75,7 @@ class _HomepageState extends State<Homepage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "To-Do List",
+                "To-Do App",
                 style: GoogleFonts.poppins(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -85,10 +96,54 @@ class _HomepageState extends State<Homepage> {
               Tab(text: "Not Completed"),
             ],
           ),
+
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.archive),
+              onPressed: () {
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.info,
+                  animType: AnimType.rightSlide,
+                  title: 'Archive Tasks ',
+                  desc: 'do you want archive today tasks ?',
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {
+                    context.read<TasksProvider>().archiveTodayTasks();
+                  },
+                ).show();
+              },
+            ),
+          ],
         ),
 
         body: Column(
           children: [
+            SizedBox(height: 10),
+            Container(
+              width: MediaQuery.of(context).size.width - 30,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(15),
+              ),
+
+              padding: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+
+                children: [
+                  Text(
+                    DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    DateFormat('EEEE').format(DateTime.now()),
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+
             Expanded(
               child: TabBarView(
                 children: [AllTasks(), CompletedTasks(), UncompletedTasks()],

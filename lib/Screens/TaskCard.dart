@@ -60,6 +60,7 @@ class Taskcard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+
       child: Slideable(
         backgroundColor: Colors.transparent,
         items: <ActionItems>[

@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_list/Providers/TasksProvider.dart';
 import 'package:to_do_list/Providers/ThemeModeProvider.dart';
 import 'package:to_do_list/Screens/Darktheme_screen.dart';
+import 'package:to_do_list/Screens/archived_Tasks_screen.dart';
 import 'package:to_do_list/Screens/homePage.dart';
 import 'package:to_do_list/Screens/Settings_screen.dart';
 
@@ -39,6 +40,7 @@ class _ToDoListState extends State<ToDoList> {
           routes: {
             'settings': (context) => SettingsScreen(),
             'darktheme': (context) => DarkthemeScreen(),
+            'archivedTasks': (context) => ArchivedTasksScreen(),
           },
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(

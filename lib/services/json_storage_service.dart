@@ -36,14 +36,12 @@ class JsonStorageService {
     }
   }
 
-  /// حفظ الأرشيف الكامل
   Future<void> saveAllTasks(List<TasksInDay> allTasks) async {
     final file = await _localFile('tasks_archive');
     final jsonString = jsonEncode(allTasks.map((e) => e.toJson()).toList());
     await file.writeAsString(jsonString);
   }
 
-  /// قراءة الأرشيف الكامل
   Future<List<TasksInDay>> readAllTasks() async {
     try {
       final file = await _localFile('tasks_archive');

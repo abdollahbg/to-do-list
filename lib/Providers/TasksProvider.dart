@@ -18,12 +18,28 @@ class TasksProvider with ChangeNotifier {
 
   Future<void> loadTasks() async {
     final loaded = await storage.readTasksInDay(filename);
-    tasks.clear();
+
     if (loaded != null) {
+      final savedDate = DateTime(
+        loaded.date.year,
+        loaded.date.month,
+        loaded.date.day,
+      );
+
+      final today = DateTime.now();
+      final currentDate = DateTime(today.year, today.month, today.day);
+
+      if (savedDate.isBefore(currentDate)) {
+        await archiveTodayTasks();
+        return;
+      }
+
+      tasks.clear();
       for (int i = 0; i < loaded.tasks.length; i++) {
         tasks[i] = loaded.tasks[i];
       }
     }
+
     notifyListeners();
   }
 
