@@ -42,8 +42,8 @@ class _ToDoListState extends State<ToDoList> {
           },
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: Colors.deepPurple,
-              primary: Colors.blue,
+              seedColor: Colors.deepPurpleAccent,
+              primary: Colors.deepPurple,
               secondary: Colors.pinkAccent,
             ),
           ),

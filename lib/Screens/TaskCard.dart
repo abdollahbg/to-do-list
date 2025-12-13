@@ -99,7 +99,7 @@ class Taskcard extends StatelessWidget {
             leading: SizedBox(
               height: double.infinity,
               child: Checkbox(
-                activeColor: theme.colorScheme.secondary,
+                activeColor: theme.colorScheme.primary,
                 value: isComplete,
                 onChanged: (value) {
                   context.read<TasksProvider>().toggleCompletion(index);
