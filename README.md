@@ -25,7 +25,7 @@ A Flutter-based **To-Do List application** with local storage using **JSON files
 Clone the repository:
 
 ```bash
-git clone https://github.com/abdollahbg/to-do-list.git
+git clone https://github.com/abdollahbg/todo_list.git
 ```
 
 Navigate to the project folder:

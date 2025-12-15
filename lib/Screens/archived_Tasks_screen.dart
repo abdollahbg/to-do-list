@@ -7,6 +7,7 @@ class ArchivedTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TasksProvider>().archiveTodayTasks();
     return Scaffold(
       appBar: AppBar(title: const Text("Archived Tasks")),
       body: Consumer<TasksProvider>(
@@ -24,22 +25,62 @@ class ArchivedTasksScreen extends StatelessWidget {
               final dateKey = sortedKeys[index];
               final dayTasks = provider.archivedTasksMap[dateKey]!;
 
+              final completedTasks = dayTasks.tasks
+                  .where((task) => task.isCompleted)
+                  .toList();
+
+              final skippedTasks = dayTasks.tasks
+                  .where((task) => !task.isCompleted)
+                  .toList();
+
               return ExpansionTile(
                 title: Text(
-                  dateKey, // أو يمكنك تنسيقه بشكل أفضل
+                  dateKey,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                children: dayTasks.tasks.map((task) {
-                  return ListTile(
-                    title: Text(task.title),
-                    subtitle: Text(
-                      "Time: ${task.taskTime.hour}:${task.taskTime.minute.toString().padLeft(2, '0')}",
+                children: [
+                  ...dayTasks.tasks.map((task) {
+                    return ListTile(
+                      title: Text(task.title),
+                      subtitle: Text(
+                        "Time: ${task.taskTime.hour}:${task.taskTime.minute.toString().padLeft(2, '0')}",
+                      ),
+                      trailing: task.isCompleted
+                          ? const Icon(Icons.check_circle, color: Colors.green)
+                          : null,
+                    );
+                  }).toList(),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Tasks completed : ',
+                      style: DefaultTextStyle.of(context).style,
+                      children: [
+                        TextSpan(
+                          text: '${completedTasks.length}',
+                          style: const TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    trailing: task.isCompleted
-                        ? const Icon(Icons.check_circle, color: Colors.green)
-                        : null,
-                  );
-                }).toList(),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Tasks skipped : ',
+                      style: DefaultTextStyle.of(context).style,
+                      children: [
+                        TextSpan(
+                          text: '${skippedTasks.length}',
+                          style: const TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               );
             },
           );
