@@ -7,7 +7,6 @@ class ArchivedTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TasksProvider>().archiveTodayTasks();
     return Scaffold(
       appBar: AppBar(title: const Text("Archived Tasks")),
       body: Consumer<TasksProvider>(
@@ -49,7 +48,7 @@ class ArchivedTasksScreen extends StatelessWidget {
                           ? const Icon(Icons.check_circle, color: Colors.green)
                           : null,
                     );
-                  }).toList(),
+                  }),
                   RichText(
                     text: TextSpan(
                       text: 'Tasks completed : ',

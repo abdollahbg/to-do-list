@@ -14,6 +14,18 @@ class TasksProvider with ChangeNotifier {
 
   TasksProvider() {
     loadTasks();
+    loadArchivedTasks();
+  }
+
+  Future<void> loadArchivedTasks() async {
+    final archivedList = await storage.readAllTasks();
+
+    archivedTasksMap = {
+      for (var day in archivedList)
+        DateFormat('yyyy-MM-dd').format(day.date): day,
+    };
+
+    notifyListeners();
   }
 
   Future<void> loadTasks() async {
@@ -125,22 +137,27 @@ class TasksProvider with ChangeNotifier {
 
   Future<void> archiveTodayTasks() async {
     if (tasks.isEmpty) return;
+
     final now = DateTime.now();
     final dateKey = DateFormat('yyyy-MM-dd').format(now);
 
+    // قراءة جميع الأرشيف
     List<TasksInDay> allTasks = await storage.readAllTasks();
 
     archivedTasksMap = {
       for (var t in allTasks) DateFormat('yyyy-MM-dd').format(t.date): t,
     };
 
+    // حفظ مهام اليوم في الأرشيف
     final todayTasks = TasksInDay(date: now, tasks: tasks.values.toList());
 
     archivedTasksMap[dateKey] = todayTasks;
-
     await storage.saveAllTasks(archivedTasksMap.values.toList());
 
     tasks.clear();
+
+    await saveTasks();
+
     notifyListeners();
   }
 
