@@ -287,7 +287,6 @@ class LineChartDataBuilder {
     );
   }
 
-  /// حساب الفاصل الزمني للعناوين
   static double _calculateTitleInterval(int dataCount) {
     if (dataCount <= 7) return 1;
     if (dataCount <= 14) return 2;
@@ -297,7 +296,6 @@ class LineChartDataBuilder {
     return 10;
   }
 
-  /// بناء بيانات الحدود
   static FlBorderData _buildBorderData() {
     return FlBorderData(
       show: true,
@@ -307,7 +305,7 @@ class LineChartDataBuilder {
 
   static LineChartData buildSimple(Map<String, TasksInDay> archivedTasks) {
     final now = DateTime.now();
-    final startDate = DateTime(now.year, now.month, now.day - 7); // آخر 7 أيام
+    final startDate = DateTime(now.year, now.month, now.day - 7);
     final endDate = now;
 
     return build(archivedTasks, startDate, endDate);
