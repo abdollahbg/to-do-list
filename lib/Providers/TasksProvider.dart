@@ -150,8 +150,11 @@ class TasksProvider with ChangeNotifier {
 
     // حفظ مهام اليوم في الأرشيف
     final todayTasks = TasksInDay(date: now, tasks: tasks.values.toList());
-
-    archivedTasksMap[dateKey] = todayTasks;
+    if (archivedTasksMap.containsKey(dateKey)) {
+      archivedTasksMap[dateKey]?.tasks.addAll(todayTasks.tasks);
+    } else {
+      archivedTasksMap[dateKey] = todayTasks;
+    }
     await storage.saveAllTasks(archivedTasksMap.values.toList());
 
     tasks.clear();

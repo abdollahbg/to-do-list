@@ -4,28 +4,23 @@ import 'package:intl/intl.dart';
 import 'package:to_do_list/models/tasks_in_day.dart';
 
 class LineChartDataBuilder {
-  /// بناء بيانات الرسم البياني مع الفلترة حسب النطاق الزمني
   static LineChartData build(
     Map<String, TasksInDay> archivedTasks,
     DateTime startDate,
     DateTime endDate,
   ) {
-    // 1. تصفية البيانات حسب النطاق الزمني
     final filteredTasks = _filterTasksByDateRange(
       archivedTasks,
       startDate,
       endDate,
     );
 
-    // 2. إذا لم توجد بيانات، عرض رسم بياني فارغ
     if (filteredTasks.isEmpty) {
       return _buildEmptyChart();
     }
 
-    // 3. فرز البيانات حسب التاريخ
     filteredTasks.sort((a, b) => a.date.compareTo(b.date));
 
-    // 4. إعداد نقاط البيانات
     final allTasksSpots = <FlSpot>[];
     final completedTasksSpots = <FlSpot>[];
     final pendingTasksSpots = <FlSpot>[];
@@ -41,7 +36,6 @@ class LineChartDataBuilder {
       pendingTasksSpots.add(FlSpot(i.toDouble(), pending));
     }
 
-    // 5. إنشاء الرسم البياني
     return LineChartData(
       lineTouchData: _buildLineTouchData(filteredTasks),
       gridData: _buildGridData(),
@@ -50,26 +44,21 @@ class LineChartDataBuilder {
       minY: 0,
       maxY: _calculateMaxY(allTasksSpots),
       lineBarsData: [
-        _buildLineBarData(
-          allTasksSpots,
-          'إجمالي المهام',
-          const Color(0xFF2196F3),
-        ),
+        _buildLineBarData(allTasksSpots, 'Total Tasks', Colors.purple),
         _buildLineBarData(
           completedTasksSpots,
-          'المكتملة',
+          'Completed',
           const Color(0xFF4CAF50),
         ),
         _buildLineBarData(
           pendingTasksSpots,
-          'المعلقة',
+          'Pending',
           const Color(0xFFFF9800),
         ),
       ],
     );
   }
 
-  /// تصفية المهام حسب النطاق الزمني
   static List<TasksInDay> _filterTasksByDateRange(
     Map<String, TasksInDay> archivedTasks,
     DateTime startDate,
@@ -87,18 +76,15 @@ class LineChartDataBuilder {
     return filtered;
   }
 
-  /// حساب أعلى قيمة Y للرسم البياني
   static double _calculateMaxY(List<FlSpot> spots) {
     if (spots.isEmpty) return 10;
     double max = spots.first.y;
     for (final spot in spots) {
       if (spot.y > max) max = spot.y;
     }
-    // إضافة هامش أعلى القيمة
     return (max + 2).ceilToDouble();
   }
 
-  /// بناء رسم بياني فارغ
   static LineChartData _buildEmptyChart() {
     return LineChartData(
       lineTouchData: LineTouchData(enabled: false),
@@ -111,7 +97,6 @@ class LineChartDataBuilder {
     );
   }
 
-  /// بيانات اللمس للرسم البياني
   static LineTouchData _buildLineTouchData(List<TasksInDay> filteredTasks) {
     return LineTouchData(
       enabled: true,
@@ -127,15 +112,15 @@ class LineChartDataBuilder {
 
             switch (spot.barIndex) {
               case 0:
-                title = 'إجمالي المهام';
+                title = 'Total Tasks';
                 color = const Color(0xFF2196F3);
                 break;
               case 1:
-                title = 'المكتملة';
+                title = 'Completed';
                 color = const Color(0xFF4CAF50);
                 break;
               case 2:
-                title = 'المعلقة';
+                title = 'Pending';
                 color = const Color(0xFFFF9800);
                 break;
               default:
@@ -148,7 +133,7 @@ class LineChartDataBuilder {
                 'yyyy-MM-dd',
               ).format(filteredTasks[index].date);
               return LineTooltipItem(
-                '$title\nالتاريخ: $date\nالعدد: $value',
+                '$title\n number: $date\n value $value',
                 TextStyle(
                   color: color,
                   fontWeight: FontWeight.bold,
@@ -167,7 +152,6 @@ class LineChartDataBuilder {
     );
   }
 
-  /// بناء خط في الرسم البياني
   static LineChartBarData _buildLineBarData(
     List<FlSpot> spots,
     String label,
@@ -212,7 +196,6 @@ class LineChartDataBuilder {
     );
   }
 
-  /// بناء بيانات الشبكة
   static FlGridData _buildGridData() {
     return FlGridData(
       show: true,
@@ -322,7 +305,6 @@ class LineChartDataBuilder {
     );
   }
 
-  /// طريقة مبسطة للاستخدام السريع (بدون فلترة)
   static LineChartData buildSimple(Map<String, TasksInDay> archivedTasks) {
     final now = DateTime.now();
     final startDate = DateTime(now.year, now.month, now.day - 7); // آخر 7 أيام
