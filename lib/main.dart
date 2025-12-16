@@ -7,6 +7,7 @@ import 'package:to_do_list/Screens/Darktheme_screen.dart';
 import 'package:to_do_list/Screens/archived_Tasks_screen.dart';
 import 'package:to_do_list/Screens/homePage.dart';
 import 'package:to_do_list/Screens/Settings_screen.dart';
+import 'package:to_do_list/Screens/statistics_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +42,7 @@ class _ToDoListState extends State<ToDoList> {
             'settings': (context) => SettingsScreen(),
             'darktheme': (context) => DarkthemeScreen(),
             'archivedTasks': (context) => ArchivedTasksScreen(),
+            'Statistics': (context) => StatisticsScreen(),
           },
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(

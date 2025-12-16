@@ -45,11 +45,21 @@ class _HomepageState extends State<Homepage> {
                 splashColor: Colors.purple.withOpacity(0.1),
               ),
               ListTile(
-                leading: Icon(Icons.person),
+                leading: Icon(Icons.archive),
                 title: Text("Archived Tasks"),
                 trailing: Icon(Icons.arrow_forward_ios, size: 12),
                 onTap: () {
                   Navigator.of(context).pushNamed('archivedTasks');
+                },
+                splashColor: Colors.purple.withOpacity(0.1),
+              ),
+
+              ListTile(
+                leading: Icon(Icons.show_chart),
+                title: Text("Statistics"),
+                trailing: Icon(Icons.arrow_forward_ios, size: 12),
+                onTap: () {
+                  Navigator.of(context).pushNamed('Statistics');
                 },
                 splashColor: Colors.purple.withOpacity(0.1),
               ),

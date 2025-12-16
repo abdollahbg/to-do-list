@@ -165,4 +165,20 @@ class TasksProvider with ChangeNotifier {
     final dateKey = DateFormat('yyyy-MM-dd').format(date);
     return archivedTasksMap[dateKey];
   }
+
+  Map<String, TasksInDay> getFilteredArchivedTasks(
+    DateTime start,
+    DateTime end,
+  ) {
+    final filtered = <String, TasksInDay>{};
+
+    archivedTasksMap.forEach((dateKey, tasksInDay) {
+      final date = DateTime.parse(dateKey);
+      if (!date.isBefore(start) && !date.isAfter(end)) {
+        filtered[dateKey] = tasksInDay;
+      }
+    });
+
+    return filtered;
+  }
 }
