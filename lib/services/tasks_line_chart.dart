@@ -18,12 +18,6 @@ class TasksLineChart extends StatelessWidget {
   });
 
   // Helper methods for adaptive colors
-  Color _getCardColor(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    return brightness == Brightness.dark
-        ? Theme.of(context).colorScheme.surface
-        : Colors.white;
-  }
 
   Color _getBorderColor(BuildContext context) {
     final brightness = Theme.of(context).brightness;
@@ -31,14 +25,6 @@ class TasksLineChart extends StatelessWidget {
     return brightness == Brightness.dark
         ? primaryColor.withOpacity(0.3)
         : primaryColor.withOpacity(0.2);
-  }
-
-  Color _getShadowColor(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    final primaryColor = Theme.of(context).colorScheme.primary;
-    return brightness == Brightness.dark
-        ? Colors.black.withOpacity(0.3)
-        : primaryColor.withOpacity(0.1);
   }
 
   Color _getContainerColor(BuildContext context) {
@@ -99,8 +85,6 @@ class TasksLineChart extends StatelessWidget {
     LineChartData chartData,
     Map<String, TasksInDay> filteredTasks,
   ) {
-    final primaryColor = Theme.of(context).colorScheme.primary;
-
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       child: Column(

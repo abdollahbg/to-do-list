@@ -212,7 +212,6 @@ class LineChartDataBuilder {
     );
   }
 
-  /// بناء بيانات العناوين
   static FlTitlesData _buildTitlesData(List<TasksInDay> filteredTasks) {
     return FlTitlesData(
       show: true,
@@ -221,7 +220,7 @@ class LineChartDataBuilder {
 
       leftTitles: AxisTitles(
         axisNameWidget: const Text(
-          'عدد المهام',
+          'Tasks number',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
         sideTitles: SideTitles(
@@ -245,7 +244,7 @@ class LineChartDataBuilder {
 
       bottomTitles: AxisTitles(
         axisNameWidget: const Text(
-          'التاريخ',
+          'date',
           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
         ),
         sideTitles: SideTitles(
@@ -261,13 +260,12 @@ class LineChartDataBuilder {
             final date = filteredTasks[index].date;
             String format;
 
-            // تحديد تنسيق التاريخ حسب عدد الأيام
             if (filteredTasks.length <= 7) {
-              format = 'MM/dd\nEEE'; // اليوم والشهر واسم اليوم
+              format = 'MM/dd\nEEE';
             } else if (filteredTasks.length <= 30) {
-              format = 'MM/dd'; // اليوم والشهر فقط
+              format = 'MM/dd';
             } else {
-              format = 'MM'; // الشهر فقط
+              format = 'MM';
             }
 
             return Padding(
