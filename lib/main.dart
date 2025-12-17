@@ -3,10 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:to_do_list/Providers/TasksProvider.dart';
 import 'package:to_do_list/Providers/ThemeModeProvider.dart';
+import 'package:to_do_list/Providers/notification_provider.dart';
 import 'package:to_do_list/Screens/Darktheme_screen.dart';
 import 'package:to_do_list/Screens/archived_Tasks_screen.dart';
 import 'package:to_do_list/Screens/homePage.dart';
 import 'package:to_do_list/Screens/Settings_screen.dart';
+import 'package:to_do_list/Screens/notification_screen.dart';
 import 'package:to_do_list/Screens/statistics_screen.dart';
 import 'package:to_do_list/services/notification_service.dart';
 
@@ -22,6 +24,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => TasksProvider()),
         ChangeNotifierProvider(create: (_) => ThemeModeProvider(isDark)),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
       child: ToDoList(),
     ),
@@ -46,6 +49,7 @@ class _ToDoListState extends State<ToDoList> {
             'darktheme': (context) => DarkthemeScreen(),
             'archivedTasks': (context) => ArchivedTasksScreen(),
             'Statistics': (context) => StatisticsScreen(),
+            'notification': (context) => NotificationScreen(),
           },
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(

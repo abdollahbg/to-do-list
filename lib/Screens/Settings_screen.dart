@@ -10,7 +10,9 @@ class SettingsScreen extends StatelessWidget {
       SettingsListTile(
         icon: Icons.circle_notifications,
         title: 'notifications',
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).pushNamed('notification');
+        },
       ),
       SettingsListTile(
         icon: Icons.dark_mode,

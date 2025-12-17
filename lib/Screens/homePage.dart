@@ -64,15 +64,6 @@ class _HomepageState extends State<Homepage> {
                 },
                 splashColor: Colors.purple.withOpacity(0.1),
               ),
-              ListTile(
-                leading: Icon(Icons.show_chart),
-                title: Text("Statistics"),
-                trailing: Icon(Icons.arrow_forward_ios, size: 12),
-                onTap: () {
-                  NotificationService.showTestNotification();
-                },
-                splashColor: Colors.purple.withOpacity(0.1),
-              ),
             ],
           ),
         ),

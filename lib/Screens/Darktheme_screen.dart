@@ -30,15 +30,15 @@ class _DarkThemeSwitcherState extends State<DarkThemeSwitcher> {
           margin: EdgeInsets.all(20),
           child: ListTile(
             title: Text('Dark theme'),
-            trailing: themeProvider.isDark
-                ? Icon(Icons.dark_mode, color: Colors.blue)
-                : Icon(Icons.light_mode, color: Colors.amberAccent),
-            leading: Switch(
+            trailing: Switch(
               value: themeProvider.isDark,
               onChanged: (value) {
                 themeProvider.changeThemeMode(value);
               },
             ),
+            leading: themeProvider.isDark
+                ? Icon(Icons.dark_mode, color: Colors.blue)
+                : Icon(Icons.light_mode, color: Colors.amberAccent),
           ),
         );
       },
