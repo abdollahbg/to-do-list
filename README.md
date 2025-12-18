@@ -40,7 +40,6 @@ A professional Flutter-based **To-Do List application** featuring advanced analy
 
 ## Screenshots
 
-*(Add your updated screenshots here)*
 
 ---
 
