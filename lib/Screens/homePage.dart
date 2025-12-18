@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do_list/Providers/TasksProvider.dart';
 import 'package:to_do_list/dialogs/Add_Dialog.dart';
-import 'package:to_do_list/services/notification_service.dart';
 
 import 'AllTasks.dart';
 import 'CompletedTask.dart';

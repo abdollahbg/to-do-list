@@ -186,7 +186,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           final hasData = filteredTasks.isNotEmpty;
 
           return ListView(
-            physics: const BouncingScrollPhysics(), // لجعل التمرير سلسًا
+            physics: const BouncingScrollPhysics(),
             children: [
               // Filter section
               Container(
@@ -810,84 +810,80 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
   Widget _buildNoDataWidget(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
 
-    return Expanded(
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.bar_chart,
-                size: 100,
-                color: primaryColor.withOpacity(0.3),
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.bar_chart,
+              size: 100,
+              color: primaryColor.withOpacity(0.3),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              'No Statistics Data Available',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: _getTextColor(context),
               ),
-              const SizedBox(height: 24),
-              Text(
-                'No Statistics Data Available',
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'From ${_formatDate(_startDate)} to ${_formatDate(_endDate)}',
+              style: TextStyle(
+                fontSize: 16,
+                color: _getSecondaryTextColor(context),
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: () {
+                setState(() {
+                  _startDate = DateTime.now().subtract(const Duration(days: 7));
+                  _endDate = DateTime.now();
+                  _currentFilter = StatisticsFilter.weekly;
+                });
+              },
+              icon: Icon(
+                Icons.refresh,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+              label: Text(
+                'Reset',
                 style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: _getTextColor(context),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 12),
-              Text(
-                'From ${_formatDate(_startDate)} to ${_formatDate(_endDate)}',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: _getSecondaryTextColor(context),
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              ElevatedButton.icon(
-                onPressed: () {
-                  setState(() {
-                    _startDate = DateTime.now().subtract(
-                      const Duration(days: 7),
-                    );
-                    _endDate = DateTime.now();
-                    _currentFilter = StatisticsFilter.weekly;
-                  });
-                },
-                icon: Icon(
-                  Icons.refresh,
                   color: Theme.of(context).colorScheme.onPrimary,
                 ),
-                label: Text(
-                  'Reset',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 4,
-                  shadowColor: primaryColor.withOpacity(0.3),
-                ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                'Try changing the filter period or add new tasks',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: _getSecondaryTextColor(context),
-                  fontStyle: FontStyle.italic,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryColor,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 16,
                 ),
-                textAlign: TextAlign.center,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 4,
+                shadowColor: primaryColor.withOpacity(0.3),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Try changing the filter period or add new tasks',
+              style: TextStyle(
+                fontSize: 14,
+                color: _getSecondaryTextColor(context),
+                fontStyle: FontStyle.italic,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
