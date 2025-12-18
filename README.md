@@ -1,4 +1,4 @@
-# To-Do List App
+# Daily To-Do App
 
 A professional Flutter-based **To-Do List application** featuring advanced analytics, local notifications, and robust data management. The app uses **JSON files** for storage, supports task archiving, and offers a seamless user experience with dynamic theming.
 
