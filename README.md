@@ -46,7 +46,7 @@ A professional Flutter-based **To-Do List application** featuring advanced analy
 ## Installation
 
 1. Clone the repository:
-   git clone https://github.com/abdollahbg/todo_list.git
+   git clone https://github.com/abdollahbg/to-do-list.git
 
 2. Navigate to the project folder:
    cd to_do_list
